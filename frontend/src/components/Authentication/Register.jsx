@@ -14,7 +14,7 @@ const Register = () => {
   const [email, setEmail] = useState([]);
   const [password, setPassword] = useState([]);
   const [confirmPassword, setConfirmPassword] = useState([]);
-//   const [pic, setPic] = useState([]);
+  //   const [pic, setPic] = useState([]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -33,7 +33,7 @@ const Register = () => {
         <Input
           type="text"
           placeholder="Name"
-          fontFamily="Montserrat"
+          fontFamily="Montserrat" 
           fontSize="base"
           onChange={(e) => setName(e.target.value)}
           value={name}
