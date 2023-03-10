@@ -22,7 +22,7 @@ app.use("/api/user", userRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-// app.use("/api/chat", chatRoutes);
+app.use("/api/chat", chatRoutes);
 // app.use("/api/message", messageRoutes);
 
 app.listen(PORT, () => {
