@@ -119,7 +119,7 @@ const Register = () => {
 
         localStorage.setItem("userInfo", JSON.stringify(data));
         setLoading(false);
-        navigate("/chats")
+        navigate("/")
 
       } catch (error) {
         toast({
