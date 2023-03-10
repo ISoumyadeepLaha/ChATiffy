@@ -8,15 +8,70 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LogIn = () => {
   const [email, setEmail] = useState([]);
   const [password, setPassword] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const toast = useToast();
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickPassword = () => setShowPassword(!showPassword);
 
-  const submitHandle = () => {};
+  const submitHandle = async () => {
+    setLoading(true);
+    if (!email || !password) {
+      toast({
+        title: "Please fill all the fields",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+      setLoading(false);
+      return;
+    } else {
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
+
+        const { data } = await axios.post(
+          "/api/user/login",
+          { email, password },
+          config
+        );
+        toast({
+          title: "Login successfully ",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "top-right",
+        });
+
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        setLoading(false);
+        navigate("/chats");
+      } catch (error) {
+        toast({
+          title: "Error occured.",
+          description: error.response.data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top-right",
+        });
+        setLoading(false);
+      }
+    }
+  };
 
   return (
     <VStack spacing="5px">
@@ -56,6 +111,7 @@ const LogIn = () => {
         w="100%"
         style={{ marginTop: "20px" }}
         onClick={submitHandle}
+        isLoading={loading}
       >
         Login
       </Button>
