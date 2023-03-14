@@ -1,8 +1,8 @@
-const asyncHandler = require("express-async-handler");
+const expressAsyncHandler = require("express-async-handler");
 const generateToken = require("../Config/generateToken");
 const User = require("../Models/userModel");
 
-const registerUser = asyncHandler(async (req, res) => {
+const registerUser = expressAsyncHandler(async (req, res) => {
   const { email, name, password, pic } = req.body;
 
   if (!name || !email || !password) {
@@ -38,7 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-const authUser = asyncHandler(async (req, res) => {
+const authUser = expressAsyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -59,7 +59,7 @@ const authUser = asyncHandler(async (req, res) => {
 
 
 // /api/user?search=soumyadeep
-const allUsers = asyncHandler(async(req, res)=> {
+const allUsers = expressAsyncHandler(async(req, res)=> {
   const keyWord = req.query.search ? {
     $or: [
       {
